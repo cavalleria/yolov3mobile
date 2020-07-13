@@ -17,7 +17,8 @@ except:
     print('Apex recommended for faster mixed precision training: https://github.com/NVIDIA/apex')
     mixed_precision = False  # not installed
 
-wdir = 'weights' + os.sep  # weights dir
+#wdir = 'weights' + os.sep  # weights dir
+wdir = '../models/person_weights' + os.sep  # weights dir
 last = wdir + 'last.pt'
 best = wdir + 'best.pt'
 results_file = 'results.txt'
@@ -412,7 +413,7 @@ if __name__ == '__main__':
     parser.add_argument('--freeze-layers', action='store_true', help='Freeze non-output layers')  
     opt = parser.parse_args()
     opt.weights = last if opt.resume and not opt.weights else opt.weights
-    check_git_status()
+    #check_git_status()
     opt.cfg = check_file(opt.cfg)  # check file
     opt.data = check_file(opt.data)  # check file
     print(opt)

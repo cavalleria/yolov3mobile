@@ -347,11 +347,19 @@ def load_darknet_weights(self, weights, cutoff=-1):
     # Parses and loads the weights stored in 'weights'
 
     # Establish cutoffs (load layers between 0 and cutoff. if cutoff = -1 all are loaded)
-    file = Path(weights).name
+    file = Path(weights).stem
+    print('file:', file)
     if file == 'darknet53.conv.74':
         cutoff = 75
     elif file == 'yolov3-tiny.conv.15':
         cutoff = 15
+    elif file == 'mobilenetv2-spp.conv.57':
+        cutoff = 57
+    elif file == 'mobilenetv2-lite.conv.57':
+        cutoff = 57
+    elif file == 'mobilenetv2-nano.conv.57':
+        cutoff = 57
+    
 
     # Read weights file
     with open(weights, 'rb') as f:
