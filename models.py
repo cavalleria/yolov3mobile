@@ -49,6 +49,8 @@ def create_modules(module_defs, img_size, cfg):
                 modules.add_module('activation', Swish())
             elif mdef['activation'] == 'mish':
                 modules.add_module('activation', Mish())
+            elif mdef['activation'] == 'relu':
+                modules.add_module('activation', nn.ReLU(inplace=True))
 
         elif mdef['type'] == 'BatchNorm2d':
             filters = output_filters[-1]
