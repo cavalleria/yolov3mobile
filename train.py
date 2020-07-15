@@ -10,6 +10,7 @@ from models import *
 from utils.datasets import *
 from utils.utils import *
 from torchprofile import profile_macs
+import copy
 
 mixed_precision = True
 try:  # Mixed precision training https://github.com/NVIDIA/apex
@@ -17,12 +18,6 @@ try:  # Mixed precision training https://github.com/NVIDIA/apex
 except:
     print('Apex recommended for faster mixed precision training: https://github.com/NVIDIA/apex')
     mixed_precision = False  # not installed
-
-#wdir = 'weights' + os.sep  # weights dir
-wdir = '../models/person_models/ss' + os.sep  # weights dir
-last = wdir + 'last.pt'
-best = wdir + 'best.pt'
-results_file = 'ss.txt'
 
 # Hyperparameters
 hyp = {'giou': 3.54,  # giou loss gain
@@ -65,6 +60,14 @@ def train(hyp):
     weights = opt.weights  # initial training weights
     imgsz_min, imgsz_max, imgsz_test = opt.img_size  # img sizes (min, max, test)
 
+
+    # initialize
+    wdir = opt.wdir + os.sep  # weights dir
+    os.makedirs(wdir, exist_ok=True)
+    last = wdir + 'last.pt'
+    best = wdir + 'best.pt'
+    results_file = 'results_'+opt.name+".txt"
+
     # Image Sizes
     gs = 32  # (pixels) grid size
     assert math.fmod(imgsz_min, gs) == 0, '--img-size %g must be a %g-multiple' % (imgsz_min, gs)
@@ -94,7 +97,7 @@ def train(hyp):
 
     # Calculate flops
     inputs = torch.randn(1, 3, 320, 320).cuda()
-    macs = profile_macs(model, inputs)
+    macs = profile_macs(copy.deepcopy(model), inputs)
     print('Model FLOPs: {}GFlops'.format(round(macs*2/1e9, 2)))
 
     # Optimizer
@@ -206,7 +209,8 @@ def train(hyp):
 
     # Dataloader
     batch_size = min(batch_size, len(dataset))
-    nw = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])  # number of workers
+    #nw = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])  # number of workers
+    nw = 32
     dataloader = torch.utils.data.DataLoader(dataset,
                                              batch_size=batch_size,
                                              num_workers=nw,
@@ -417,6 +421,7 @@ if __name__ == '__main__':
     parser.add_argument('--adam', action='store_true', help='use adam optimizer')
     parser.add_argument('--single-cls', action='store_true', help='train as single-class dataset')
     parser.add_argument('--freeze-layers', action='store_true', help='Freeze non-output layers')  
+    parser.add_argument('--wdir', default='../models/person_models/weights', help='weights dir')  
     opt = parser.parse_args()
     opt.weights = last if opt.resume and not opt.weights else opt.weights
     #check_git_status()
