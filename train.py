@@ -9,6 +9,7 @@ import test  # import test.py to get mAP after each epoch
 from models import *
 from utils.datasets import *
 from utils.utils import *
+from torchprofile import profile_macs
 
 mixed_precision = True
 try:  # Mixed precision training https://github.com/NVIDIA/apex
@@ -18,10 +19,10 @@ except:
     mixed_precision = False  # not installed
 
 #wdir = 'weights' + os.sep  # weights dir
-wdir = '../models/person_weights' + os.sep  # weights dir
+wdir = '../models/person_models/ss' + os.sep  # weights dir
 last = wdir + 'last.pt'
 best = wdir + 'best.pt'
-results_file = 'results.txt'
+results_file = 'ss.txt'
 
 # Hyperparameters
 hyp = {'giou': 3.54,  # giou loss gain
@@ -90,6 +91,11 @@ def train(hyp):
 
     # Initialize model
     model = Darknet(cfg).to(device)
+
+    # Calculate flops
+    inputs = torch.randn(1, 3, 320, 320).cuda()
+    macs = profile_macs(model, inputs)
+    print('Model FLOPs: {}GFlops'.format(round(macs*2/1e9, 2)))
 
     # Optimizer
     pg0, pg1, pg2 = [], [], []  # optimizer parameter groups
