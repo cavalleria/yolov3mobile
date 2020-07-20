@@ -13,7 +13,7 @@ This project originated from the excellent [ultralytics/yolov3](https://github.c
 |:---:|:---:|:---:|:---:|
 | CC | COCO_person | 60000 | 4115 |
 | WP | WiderPerson | 8000  | 1000 |
-| CT | City_person | 2112 | 487 |
+| CP | City_person | 2112 | 487 |
 
 ## Benchmark
 
@@ -29,4 +29,4 @@ This project originated from the excellent [ultralytics/yolov3](https://github.c
 | MobileNetV2-YOLOv3-Nano | 320 | CC | CC | 0.48G | 0.71M | 55.9 | 2.9M |
 | MobileNetV2-YOLOv3-Nano | 320 | WP | WP | 0.48G | 0.71M | 46.4 | 2.9M |
 | MobileNetV2-YOLOv3-Nano | 320 | CC+WP | CC+WP | 0.48G | 0.71M | 53.4 | 2.9M |
-| MobileNetV2-YOLOv3-Nano | 320 | CC+WP+CI | CC+WP+CI | 0.48G | 0.71M | 49.1 | 2.9M |
+| MobileNetV2-YOLOv3-Nano | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 49.1 | 2.9M |
