@@ -7,13 +7,13 @@ This project originated from the excellent [ultralytics/yolov3](https://github.c
 - COCO
 - COCO_person, 训练集60000张, 验证集4115张
 - WiderPerson, 训练集8000张, 验证集1000张
-- Citypersons, 训练集2113张， 验证集488张
+- Citypersons, 训练集2112张， 验证集487张
   
 | Type | Dataset | Train data | Val data |
-|:---:|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|
 | CC | COCO_person | 60000 | 4115 |
 | WP | WiderPerson | 8000  | 1000 |
-| CT | COCO_person | 60000 | 4115 |
+| CT | City_person | 2112 | 487 |
 
 ## Benchmark
 
