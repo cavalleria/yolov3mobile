@@ -66,7 +66,7 @@ def train(hyp):
     os.makedirs(wdir, exist_ok=True)
     last = wdir + 'last.pt'
     best = wdir + 'best.pt'
-    results_file = 'results_'+opt.name+".txt"
+    results_file = wdir + 'results_'+opt.name+".txt"
 
     # Image Sizes
     gs = 32  # (pixels) grid size
@@ -209,8 +209,8 @@ def train(hyp):
 
     # Dataloader
     batch_size = min(batch_size, len(dataset))
-    #nw = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])  # number of workers
-    nw = 32
+    nw = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])  # number of workers
+    #nw = 32
     dataloader = torch.utils.data.DataLoader(dataset,
                                              batch_size=batch_size,
                                              num_workers=nw,
