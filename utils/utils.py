@@ -1078,3 +1078,39 @@ def plot_results(start=0, stop=0, bucket='', id=()):  # from utils.utils import 
 
     ax[1].legend()
     fig.savefig('results.png', dpi=200)
+
+def widerperson2darknet(path='../WiderPerson/labels', output='../WiderPerson/new_labels'):
+    # convert widerperson annotations to darknet format
+    files = sorted(glob.glob('%s/*.*' % path))
+    os.makedirs(output, exist_ok=True)
+    for i, file in enumerate(files):
+        img_path = os.path.join(os.path.dirname(path), 'images', Path(file).stem+'.jpg')
+        img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
+        h, w, _ = img.shape
+        labels = np.loadtxt(file, dtype=np.float32, skiprows=1).reshape(-1, 5)
+        new_labels = labels[np.where(labels[:,0] <= 3)]
+        #print('1', new_labels)
+        f_labels = np.zeros(new_labels.shape)
+        f_labels[:, 0] = 0
+        f_labels[:, 1] = (new_labels[:, 1] + (new_labels[:, 3]-new_labels[:, 1])/2)/w
+        f_labels[:, 2] = (new_labels[:, 2] + (new_labels[:, 4]-new_labels[:, 2])/2)/h
+        f_labels[:, 3] = (new_labels[:, 3]-new_labels[:, 1])/w
+        f_labels[:, 4] = (new_labels[:, 4]-new_labels[:, 2])/h
+        #print('2', f_labels)
+        with open(os.path.join(output, Path(file).name), 'a') as f:  # write label
+            for l in f_labels[:,:]:
+                f.write('%g %.6f %.6f %.6f %.6f\n' % tuple(l))
+        #input()
+
+
+'''
+
+def coco_only_people(path='../coco/labels/train2017/'):  # from utils.utils import *; coco_only_people()
+    # Find images with only people
+    files = sorted(glob.glob('%s/*.*' % path))
+    for i, file in enumerate(files):
+        labels = np.loadtxt(file, dtype=np.float32).reshape(-1, 5)
+        if all(labels[:, 0] == 0):
+            print(labels.shape[0], file)
+
+'''
