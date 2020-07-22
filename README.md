@@ -30,3 +30,6 @@ This project originated from the excellent [ultralytics/yolov3](https://github.c
 | MobileNetV2-YOLOv3-Nano | 320 | WP | WP | 0.48G | 0.71M | 46.4 | 2.9M |
 | MobileNetV2-YOLOv3-Nano | 320 | CC+WP | CC+WP | 0.48G | 0.71M | 53.4 | 2.9M |
 | MobileNetV2-YOLOv3-Nano | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 49.1 | 2.9M |
+| MobileNetV2-YOLOv3-Nano-Anchor | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 50.3 | 2.9M |
+| YOLOv3-Ultra | 320 | CC+WP+CP | CC+WP+CP | 0.11G | 0.1M |  | 908K |
+| MobileNetV2-YOLOv3-Nano-3yolo | 320 | CC+WP+CP | CC+WP+CP | 0.69G | 0.76M |  |  |
