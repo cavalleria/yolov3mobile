@@ -51,6 +51,8 @@ def create_modules(module_defs, img_size, cfg):
                 modules.add_module('activation', Mish())
             elif mdef['activation'] == 'relu':
                 modules.add_module('activation', nn.ReLU(inplace=True))
+            elif mdef['activation'] == 'logistic':
+                modules.add_module('activation', nn.Sigmoid())
 
         elif mdef['type'] == 'BatchNorm2d':
             filters = output_filters[-1]
@@ -69,6 +71,14 @@ def create_modules(module_defs, img_size, cfg):
                 modules.add_module('MaxPool2d', maxpool)
             else:
                 modules = maxpool
+        elif mdef['type'] == 'avgpool':
+            global_avgpool = nn.AdaptiveAvgPool2d(1)
+            modules = global_avgpool
+
+        elif mdef['type'] == 'scale_channels':
+            layers = mdef['from']
+            routs.extend([i + l if l < 0 else l for l in layers])
+            modules = ScaleChannels(layers=layers)
 
         elif mdef['type'] == 'upsample':
             if ONNX_EXPORT:  # explicitly state size, avoid scale_factor
@@ -288,7 +298,7 @@ class Darknet(nn.Module):
 
         for i, module in enumerate(self.module_list):
             name = module.__class__.__name__
-            if name in ['WeightedFeatureFusion', 'FeatureConcat']:  # sum, concat
+            if name in ['WeightedFeatureFusion', 'FeatureConcat', 'ScaleChannels']:  # sum, concat
                 if verbose:
                     l = [i - 1] + module.layers  # layers
                     sh = [list(x.shape)] + [list(out[i].shape) for i in module.layers]  # shapes

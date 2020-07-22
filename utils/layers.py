@@ -34,6 +34,17 @@ class FeatureConcat(nn.Module):
     def forward(self, x, outputs):
         return torch.cat([outputs[i] for i in self.layers], 1) if self.multiple else outputs[self.layers[0]]
 
+class ScaleChannels(nn.Module):
+    def __init__(self, layers):
+        super(ScaleChannels, self).__init__()
+        self.layers = layers  # layer indices
+
+    def forward(self, x, outputs):
+        #print('x.shape', x.shape)
+        #print('self.layers[0]', self.layers[0])
+        #x = x.view(x.size(0), -1)
+        return x*outputs[self.layers[0]]
+
 
 class WeightedFeatureFusion(nn.Module):  # weighted sum of 2 or more layers https://arxiv.org/abs/1911.09070
     def __init__(self, layers, weight=False):

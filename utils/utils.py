@@ -1101,16 +1101,3 @@ def widerperson2darknet(path='../WiderPerson/labels', output='../WiderPerson/new
             for l in f_labels[:,:]:
                 f.write('%g %.6f %.6f %.6f %.6f\n' % tuple(l))
         #input()
-
-
-'''
-
-def coco_only_people(path='../coco/labels/train2017/'):  # from utils.utils import *; coco_only_people()
-    # Find images with only people
-    files = sorted(glob.glob('%s/*.*' % path))
-    for i, file in enumerate(files):
-        labels = np.loadtxt(file, dtype=np.float32).reshape(-1, 5)
-        if all(labels[:, 0] == 0):
-            print(labels.shape[0], file)
-
-'''
