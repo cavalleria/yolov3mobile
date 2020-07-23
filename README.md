@@ -7,13 +7,15 @@ This project originated from the excellent [ultralytics/yolov3](https://github.c
 - COCO
 - COCO_person, 训练集60000张, 验证集4115张
 - WiderPerson, 训练集8000张, 验证集1000张
-- Citypersons, 训练集2112张， 验证集487张
-  
+- Citypersons, 训练集2112张, 验证集487张
+- WIDERFace, 训练集12881张, 验证集3220张 
+
 | Type | Dataset | Train data | Val data |
 |:---:|:---:|:---:|:---:|
 | CC | COCO_person | 60000 | 4115 |
 | WP | WiderPerson | 8000  | 1000 |
 | CP | City_person | 2112 | 487 |
+| WF | WIDERFace | 12881 | 3220 |
 
 ## Benchmark
 
@@ -32,4 +34,12 @@ This project originated from the excellent [ultralytics/yolov3](https://github.c
 | MobileNetV2-YOLOv3-Nano | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 49.1 | 2.9M |
 | MobileNetV2-YOLOv3-Nano-Anchor | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 50.3 | 2.9M |
 | YOLOv3-Ultra | 320 | CC+WP+CP | CC+WP+CP | 0.11G | 0.1M | 46.1 |515K |
-| MobileNetV2-YOLOv3-Nano-3yolo | 320 | CC+WP+CP | CC+WP+CP | 0.69G | 0.76M | 56.3 | 3.4M |
+| MobileNetV2-YOLOv3-Nano-3yolo | 320 | CC+WP+CP | CC+WP+CP | 0.69G | 0.76M | 56.3 | 3.2M |
+
+### Face detection(single class)
+
+| Network | Input size | Train data | Val data | FLOPS | Params | mAP@0.5 | Weight size | Easy | Medium | Hard |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| MobileNetV2-YOLOv3-Nano-Anchor | 320 | WF | WF |  |  |  |  |  |  |  |
+| MobileNetV2-YOLOv3-Nano-3yolo | 320 | WF | WF |  |  |  |  |  |  |  |
+| YOLOv3-Ultra | 320 | WF | WF |  |  |  |  |  |  |  |
