@@ -2,6 +2,10 @@
 
 This project originated from the excellent [ultralytics/yolov3](https://github.com/ultralytics/yolov3) repository and aims to implement light mobile object detector.
 
+![Imgur](https://raw.githubusercontent.com/sthanhng/yoloface/master/assets/yolo-architecture.png)
+Credit: [Ayoosh Kathuria](https://towardsdatascience.com/yolo-v3-object-detection-53fb7d3bfe6b)
+
+
 ## Data Preparation
 
 - COCO
@@ -15,7 +19,7 @@ This project originated from the excellent [ultralytics/yolov3](https://github.c
 | CC | COCO_person | 60000 | 4115 |
 | WP | WiderPerson | 8000  | 1000 |
 | CP | City_person | 2112 | 487 |
-| WF | WIDERFace | 12881 | 3220 |
+| WF | WIDERFace | 12880 | 3226 |
 
 ## Benchmark
 
