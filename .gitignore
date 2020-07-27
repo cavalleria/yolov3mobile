@@ -37,6 +37,7 @@ pycocotools/*
 results*.txt
 gcp_test*.sh
 .history
+utils/widerface_evaluate/result
 
 # MATLAB GitIgnore -----------------------------------------------------------------------------------------------------
 *.m~
