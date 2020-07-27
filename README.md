@@ -45,5 +45,5 @@ Credit: [Ayoosh Kathuria](https://towardsdatascience.com/yolo-v3-object-detectio
 | Network | Input size | Train data | Val data | FLOPS | Params | mAP@0.5 | Weight size | Easy | Medium | Hard |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | Retinaface-m0.25 | 320 | WF | WF |  |  |  | 1.68M | 74.5 | 55.3 | 23.2 |
-| YOLOv3-Ultra | 320 | WF | WF | 110M | 0.1M | 34.1 | 516K | 75.349 | 69.764 | 41.165 |
-| MobileNetV2-YOLOv3-Nano-3yolo | 320 | WF | WF |  |  |  |  |  |  |  |
+| YOLOv3-Ultra | 320 | WF | WF | 110M | 0.1M | 35.8 | 516K | 75.507 | 71.034 | 43.083 |
+| MobileNetV2-YOLOv3-Nano-3yolo | 320 | WF | WF | 0.69G | 0.76M | 39.2 | 3.2M | 83.464 | 79.303 | 47.205 |
