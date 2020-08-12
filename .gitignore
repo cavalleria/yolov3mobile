@@ -38,6 +38,10 @@ results*.txt
 gcp_test*.sh
 .history
 utils/widerface_evaluate/result
+resource/
+output/
+weights/
+
 
 # MATLAB GitIgnore -----------------------------------------------------------------------------------------------------
 *.m~

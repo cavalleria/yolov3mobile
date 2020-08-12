@@ -31,7 +31,7 @@ activation=relu
 [convolutional]
 filters=8
 size=3
-groups=4
+groups=8
 stride=1
 pad=1
 batch_normalize=1
@@ -58,7 +58,7 @@ activation=relu
 [convolutional]
 filters=18
 size=3
-groups=9
+groups=18
 stride=2
 pad=1
 batch_normalize=1
@@ -85,7 +85,7 @@ activation=relu
 [convolutional]
 filters=36
 size=3
-groups=18
+groups=36
 stride=1
 pad=1
 batch_normalize=1
@@ -137,7 +137,7 @@ activation=relu
 [convolutional]
 filters=24
 size=3
-groups=12
+groups=24
 stride=2
 pad=1
 batch_normalize=1
@@ -164,7 +164,7 @@ activation=relu
 [convolutional]
 filters=48
 size=3
-groups=24
+groups=48
 stride=1
 pad=1
 batch_normalize=1
@@ -196,7 +196,7 @@ activation=relu
 [convolutional]
 filters=48
 size=3
-groups=24
+groups=48
 stride=1
 pad=1
 batch_normalize=1
@@ -247,7 +247,7 @@ activation=relu
 [convolutional]
 filters=48
 size=3
-groups=24
+groups=48
 stride=2
 pad=1
 batch_normalize=1
@@ -274,7 +274,7 @@ activation=relu
 [convolutional]
 filters=96
 size=3
-groups=48
+groups=96
 stride=1
 pad=1
 batch_normalize=1
@@ -306,7 +306,7 @@ activation=relu
 [convolutional]
 filters=96
 size=3
-groups=48
+groups=96
 stride=1
 pad=1
 batch_normalize=1
@@ -338,7 +338,7 @@ activation=relu
 [convolutional]
 filters=96
 size=3
-groups=48
+groups=96
 stride=1
 pad=1
 batch_normalize=1
@@ -389,7 +389,7 @@ activation=relu
 [convolutional]
 filters=96
 size=3
-groups=48
+groups=96
 stride=2
 pad=1
 batch_normalize=1
@@ -416,7 +416,7 @@ activation=relu
 [convolutional]
 filters=144
 size=3
-groups=72
+groups=144
 stride=1
 pad=1
 batch_normalize=1
@@ -448,7 +448,7 @@ activation=relu
 [convolutional]
 filters=144
 size=3
-groups=72
+groups=144
 stride=1
 pad=1
 batch_normalize=1
@@ -521,7 +521,7 @@ from=-4
 [convolutional]
 filters=72
 size=3
-groups=36
+groups=72
 stride=1
 pad=1
 batch_normalize=1
@@ -544,7 +544,7 @@ activation=linear
 
 [yolo]
 mask = 6,7,8
-anchors = 41,91,  66,164,  103,138,  96,192,  82,262,  139,197,  112,289,  192,195,  166,284
+anchors = 19,26,  23,45,  29,73,  52,63,  45,114,  85,107,  68,166,  114,188,  188,215
 classes=1
 num=9
 jitter=.1
@@ -603,7 +603,7 @@ from=-4
 [convolutional]
 filters=48
 size=3
-groups=24
+groups=48
 stride=1
 pad=1
 batch_normalize=1
@@ -626,7 +626,7 @@ activation=linear
 
 [yolo]
 mask = 3,4,5
-anchors = 41,91,  66,164,  103,138,  96,192,  82,262,  139,197,  112,289,  192,195,  166,284
+anchors = 19,26,  23,45,  29,73,  52,63,  45,114,  85,107,  68,166,  114,188,  188,215
 classes=1
 num=9
 jitter=.1
@@ -685,7 +685,7 @@ from=-4
 [convolutional]
 filters=24
 size=3
-groups=12
+groups=24
 stride=1
 pad=1
 batch_normalize=1
@@ -708,7 +708,7 @@ activation=linear
 
 [yolo]
 mask = 0,1,2
-anchors = 41,91,  66,164,  103,138,  96,192,  82,262,  139,197,  112,289,  192,195,  166,284
+anchors = 19,26,  23,45,  29,73,  52,63,  45,114,  85,107,  68,166,  114,188,  188,215
 classes=1
 num=9
 jitter=.1
