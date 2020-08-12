@@ -13,7 +13,9 @@ Credit: [Ayoosh Kathuria](https://towardsdatascience.com/yolo-v3-object-detectio
 - WiderPerson, 训练集8000张, 验证集1000张
 - Citypersons, 训练集2112张, 验证集487张
 - ICCVWider, 包括监控(sur)和自动驾驶(ad), 训练集58026张, 验证集3233张
-- WIDERFace, 训练集12881张, 验证集3220张 
+- WIDERFace, 训练集12881张, 验证集3220张
+- AI-Challenger single, 训练集22446张, 验证集1500张
+- AI-Challenger, 训练集210000张, 验证集30000张
 
 | Type | Dataset | Train data | Val data |
 |:---:|:---:|:---:|:---:|
@@ -22,6 +24,8 @@ Credit: [Ayoosh Kathuria](https://towardsdatascience.com/yolo-v3-object-detectio
 | CP | City_person | 2112 | 487 |
 | Wsur | ICCV_sur | 5563 | 2369 |
 | Wad | ICCV_ad | 52436 | 864 |
+| ACS | AI-Challenger | 22446 | 1500 |
+| AC | AI-Challenger | 210000 | 30000 |
 | WF | WIDERFace | 12880 | 3226 |
 
 ## Benchmark
@@ -44,12 +48,13 @@ Credit: [Ayoosh Kathuria](https://towardsdatascience.com/yolo-v3-object-detectio
 | MobileNetV2-YOLOv3-Nano-Anchor | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 50.3 | 2.9M |
 | MobileNetV2-YOLOv3-Nano-3yolo | 320 | CC+WP+CP | CC+WP+CP | 0.69G | 0.76M | 56.3 | 3.2M |
 | YOLOv3-Ultra | 320 | CC+WP+CP | CC+WP+CP | 0.11G | 0.1M | 46.1 |515K |
-| YOLOv3-Ultra | 320 | CC+WP+CP+IW | CC+WP+CP | 0.11G | 0.1M | 45.4 |515K |
+| YOLOv3-Ultra | 320 | CC+WP+CP+Wsur | CC+WP+CP | 0.11G | 0.1M | 45.4 |515K |
+| YOLOv3-Ultra | 320 | CC | CC | 0.11G | 0.1M | 48.1 |515K |
 
 ### Face detection(single class)
 
-| Network | Input size | Train data | Val data | FLOPS | Params | mAP@0.5 | Weight size | Easy | Medium | Hard |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Retinaface-m0.25 | 320 | WF | WF |  |  |  | 1.68M | 74.5 | 55.3 | 23.2 |
-| YOLOv3-Ultra | 320 | WF | WF | 110M | 0.1M | 35.8 | 516K | 75.507 | 71.034 | 43.083 |
-| MobileNetV2-YOLOv3-Nano-3yolo | 320 | WF | WF | 0.69G | 0.76M | 39.2 | 3.2M | 83.464 | 79.303 | 47.205 |
+| Network | Input size | Train data | Val data | FLOPS | Params | Weight size | mAP@0.5 | Weight size | Easy | Medium | Hard |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Retinaface-m0.25 | 320 | WF | WF | - | - | 1.68M | - | 1.68M | 74.5 | 55.3 | 23.2 |
+| YOLOv3-Ultra | 320 | WF | WF | 110M | 0.1M | 515K | 35.8 | 516K | 75.507 | 71.034 | 43.083 |
+| MobileNetV2-YOLOv3-Nano-3yolo | 320 | WF | WF | 0.69G | 0.76M | 3.2M | 39.2 | 3.2M | 83.464 | 79.303 | 47.205 |

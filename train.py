@@ -26,8 +26,8 @@ hyp = {'giou': 3.54,  # giou loss gain
        'obj': 64.3,  # obj loss gain (*=img_size/320 if img_size != 320)
        'obj_pw': 1.0,  # obj BCELoss positive_weight
        'iou_t': 0.20,  # iou training threshold
-       'lr0': 0.1,  # initial learning rate (SGD=5E-3, Adam=5E-4)
-       'lrf': 0.001,  # final learning rate (with cos scheduler)
+       'lr0': 0.01,  # initial learning rate (SGD=5E-3, Adam=5E-4)
+       'lrf': 0.0005,  # final learning rate (with cos scheduler)
        'momentum': 0.937,  # SGD momentum
        'weight_decay': 0.0005,  # optimizer weight decay
        'fl_gamma': 0.0,  # focal loss gamma (efficientDet default is gamma=1.5)
@@ -96,7 +96,7 @@ def train(hyp):
     model = Darknet(cfg).to(device)
 
     # Calculate flops
-    inputs = torch.randn(1, 3, 320, 320).cuda()
+    inputs = torch.randn(1, 3, imgsz_test, imgsz_test).cuda()
     macs = profile_macs(copy.deepcopy(model), inputs)
     print('Model FLOPs: {}GFlops'.format(round(macs*2/1e9, 2)))
 
@@ -220,14 +220,14 @@ def train(hyp):
 
     # Testloader
     testloader = torch.utils.data.DataLoader(LoadImagesAndLabels(test_path, imgsz_test, batch_size,
-                                                                 hyp=hyp,
-                                                                 rect=True,
-                                                                 cache_images=opt.cache_images,
-                                                                 single_cls=opt.single_cls),
-                                             batch_size=batch_size,
-                                             num_workers=nw,
-                                             pin_memory=True,
-                                             collate_fn=dataset.collate_fn)
+                                                                hyp=hyp,
+                                                                rect=True,
+                                                                cache_images=opt.cache_images,
+                                                                single_cls=opt.single_cls),
+                                                                batch_size=batch_size,
+                                                                num_workers=nw,
+                                                                pin_memory=True,
+                                                                collate_fn=dataset.collate_fn)
 
     # Model parameters
     model.nc = nc  # attach number of classes to model

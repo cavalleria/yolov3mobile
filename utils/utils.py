@@ -640,7 +640,7 @@ def crop_images_random(path='../images/', scale=0.50):  # from utils.utils impor
             cv2.imwrite(file, img[ymin:ymax, xmin:xmax])
 
 
-def coco_single_class_labels(path='../coco/labels/train2014/', label_class=43):
+def coco_single_class_labels(path='../coco/labels/train2014/', label_class=0):
     # Makes single-class coco datasets. from utils.utils import *; coco_single_class_labels()
     if os.path.exists('new/'):
         shutil.rmtree('new/')  # delete output folder
@@ -659,6 +659,28 @@ def coco_single_class_labels(path='../coco/labels/train2014/', label_class=43):
             with open('new/labels/' + Path(file).name, 'a') as f:  # write label
                 for l in labels[i]:
                     f.write('%g %.6f %.6f %.6f %.6f\n' % tuple(l))
+            shutil.copyfile(src=img_file, dst='new/images/' + Path(file).name.replace('txt', 'jpg'))  # copy images
+
+def remove_coco_person_small(path='./new_val/labels/', ratio=0.05):
+    # Makes single-class coco datasets. from utils.utils import *; coco_single_class_labels()
+    if os.path.exists('new/'):
+        shutil.rmtree('new/')  # delete output folder
+    os.makedirs('new/')  # make new output folder
+    os.makedirs('new/labels/')
+    os.makedirs('new/images/')
+    
+    for file in tqdm(sorted(glob.glob('%s/*.*' % path))):
+        with open(file, 'r') as f:
+            labels = np.array([x.split() for x in f.read().splitlines()], dtype=np.float32)
+        img_file = file.replace('labels', 'images').replace('txt', 'jpg')
+        
+        flag = False
+        for l in labels:
+            if l[3] > ratio and l[4] > ratio:
+                flag = True
+                with open('new/labels/' + Path(file).name, 'a') as f:  # write label
+                    f.write('%g %.6f %.6f %.6f %.6f\n' % tuple(l))
+        if flag is True:
             shutil.copyfile(src=img_file, dst='new/images/' + Path(file).name.replace('txt', 'jpg'))  # copy images
 
 
@@ -1100,4 +1122,23 @@ def widerperson2darknet(path='../WiderPerson/labels', output='../WiderPerson/new
         with open(os.path.join(output, Path(file).name), 'a') as f:  # write label
             for l in f_labels[:,:]:
                 f.write('%g %.6f %.6f %.6f %.6f\n' % tuple(l))
-        #input()
+
+def iccvwider2darknet(path='../person/iccvwider/sur_bbox.txt', output='../person/iccvwider/labels'):
+    # convert iccvwider annotations to darknet format
+    for lines in open(path, 'r'):
+        lines_sep = lines.strip().split(' ')
+        if len(lines_sep) == 1:
+            continue
+        img_path = os.path.join(Path(path).parent, 'images', lines_sep[0])
+        img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
+        h, w, _ = img.shape
+        new_labels = np.array(lines_sep[1:]).astype(int).reshape(-1, 4)
+        f_labels = np.zeros((new_labels.shape[0], new_labels.shape[1]+1), np.float32)
+        f_labels[:, 0] = 0
+        f_labels[:, 1] = (new_labels[:, 0] + new_labels[:, 2]/2) / w
+        f_labels[:, 2] = (new_labels[:, 1] + new_labels[:, 3]/2) / h
+        f_labels[:, 3] = new_labels[:, 2] / w
+        f_labels[:, 4] = new_labels[:, 3] / h
+        with open(os.path.join(output, Path(lines_sep[0]).stem+'.txt'), 'a') as f:  # write label
+            for l in f_labels[:,:]:
+                f.write('%g %.6f %.6f %.6f %.6f\n' % tuple(l))

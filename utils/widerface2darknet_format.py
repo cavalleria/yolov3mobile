@@ -15,7 +15,7 @@ def convertimgset(img_set="train"):
     imgdir=rootdir+"/WIDER_"+img_set+"/images"
     gtfilepath=rootdir+"/wider_face_split/wider_face_"+img_set+"_bbx_gt.txt"
     imagesdir=datasetprefix+"/images"
-    labelsdir=datasetprefix+"/labels"
+    labelsdir=datasetprefix+"/new_labels"
     if not os.path.exists(imagesdir):
         os.mkdir(imagesdir)
     if convet2yoloformat:

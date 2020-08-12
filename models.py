@@ -1,7 +1,7 @@
 from utils.google_utils import *
 from utils.layers import *
 from utils.parse_config import *
-
+import torch.nn as nn
 ONNX_EXPORT = False
 
 
@@ -77,8 +77,12 @@ def create_modules(module_defs, img_size, cfg):
 
         elif mdef['type'] == 'scale_channels':
             layers = mdef['from']
+            #filters = output_filters[-1]
             routs.extend([i + l if l < 0 else l for l in layers])
             modules = ScaleChannels(layers=layers)
+
+        elif mdef['type'] == 'se':
+            modules.add_module('se', SELayer(output_filters[-1],reduction=int(mdef['reduction'])))
 
         elif mdef['type'] == 'upsample':
             if ONNX_EXPORT:  # explicitly state size, avoid scale_factor
@@ -437,6 +441,13 @@ def save_weights(self, path='model.weights', cutoff=-1):
                     conv_layer.bias.data.cpu().numpy().tofile(f)
                 # Load conv weights
                 conv_layer.weight.data.cpu().numpy().tofile(f)
+            elif mdef['type'] == 'se':
+                se = module[0]
+                fc = se.fc
+                fc1 = fc[0]
+                fc2 = fc[2]
+                fc1.weight.data.cpu().numpy().tofile(f)
+                fc2.weight.data.cpu().numpy().tofile(f)
 
 
 def convert(cfg='cfg/yolov3-spp.cfg', weights='weights/yolov3-spp.weights'):
@@ -498,3 +509,20 @@ def attempt_download(weights):
         if not (r == 0 and os.path.exists(weights) and os.path.getsize(weights) > 1E6):  # weights exist and > 1MB
             os.system('rm ' + weights)  # remove partial downloads
             raise Exception(msg)
+
+class SELayer(nn.Module):
+    def __init__(self, channel, reduction=4):
+        super(SELayer, self).__init__()
+        self.avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.fc = nn.Sequential(
+                nn.Linear(channel, channel // reduction),
+                nn.ReLU(inplace=True),
+                nn.Linear(channel // reduction, channel),
+                nn.Sigmoid())
+
+    def forward(self, x):
+        b, c, _, _ = x.size()
+        y = self.avg_pool(x).view(b, c)
+        y = self.fc(y).view(b, c, 1, 1)
+        #y = torch.clamp(y, 0, 1)
+        return x * y

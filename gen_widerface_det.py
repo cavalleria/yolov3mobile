@@ -6,6 +6,7 @@ import cv2
 import torch
 import cv2
 import numpy as  np
+from utils.datasets import *
 from utils.utils import *
 from models import *  # set ONNX_EXPORT in models.py
 
@@ -14,7 +15,9 @@ long_side = 320  # -1 mean origin shape
 
 # Initialize model
 device = torch_utils.select_device(device='0')
-weights = '../models/person_models/ultra_face/best_ultra_face.pt'
+#weights = '../models/person_models/nano_face/best_nano_face.pt'
+#cfg = './cfg/mbnv2-yolov3-nano-3yolo-face.cfg'
+weights = '../models/person_models/ultra_face_24/best_ultra_face_24.pt'
 cfg = './cfg/yolov3-ultra-face.cfg'
 imgsz = long_side
 model = Darknet(cfg, imgsz)
@@ -28,7 +31,6 @@ model.to(device).eval()
 counter = 0
 val_image_root = "../face/WIDER_val/images/"  # path to widerface valuation image root
 val_result_txt_save_root = "./utils/widerface_evaluate/result"  # result directory
-
 
 for parent, dir_names, file_names in os.walk(val_image_root):
     for file_name in file_names:
@@ -58,11 +60,9 @@ for parent, dir_names, file_names in os.walk(val_image_root):
 
         scale_w = tar_w * 1.0 / ori_w
         scale_h = tar_h * 1.0 / ori_h
-
+        
         image = cv2.resize(orig_image, (tar_w, tar_h))
-
-
-
+        
         image = image[..., ::-1]
         image = image.astype(np.float32)
         image = image / 255.0
