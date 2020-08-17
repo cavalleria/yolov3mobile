@@ -5,7 +5,6 @@ This project originated from the excellent [ultralytics/yolov3](https://github.c
 ![Imgur](https://raw.githubusercontent.com/sthanhng/yoloface/master/assets/yolo-architecture.png)
 Credit: [Ayoosh Kathuria](https://towardsdatascience.com/yolo-v3-object-detection-53fb7d3bfe6b)
 
-
 ## Data Preparation
 
 - COCO
@@ -41,15 +40,13 @@ Credit: [Ayoosh Kathuria](https://towardsdatascience.com/yolo-v3-object-detectio
 
 | Network | Input size | Train data | Val data | FLOPS | Params | mAP@0.5 | Weight size |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| MobileNetV2-YOLOv3-Nano | 320 | CC | CC | 0.48G | 0.71M | 55.9 | 2.9M |
-| MobileNetV2-YOLOv3-Nano | 320 | WP | WP | 0.48G | 0.71M | 46.4 | 2.9M |
-| MobileNetV2-YOLOv3-Nano | 320 | CC+WP | CC+WP | 0.48G | 0.71M | 53.4 | 2.9M |
-| MobileNetV2-YOLOv3-Nano | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 49.1 | 2.9M |
-| MobileNetV2-YOLOv3-Nano-Anchor | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 50.3 | 2.9M |
+| MobileNetV2-YOLOv3-Nano | 320 | CC+WP+CP | CC+WP+CP | 0.48G | 0.71M | 50.3 | 2.9M |
 | MobileNetV2-YOLOv3-Nano-3yolo | 320 | CC+WP+CP | CC+WP+CP | 0.69G | 0.76M | 56.3 | 3.2M |
 | YOLOv3-Ultra | 320 | CC+WP+CP | CC+WP+CP | 0.11G | 0.1M | 46.1 |515K |
 | YOLOv3-Ultra | 320 | CC+WP+CP+Wsur | CC+WP+CP | 0.11G | 0.1M | 45.4 |515K |
 | YOLOv3-Ultra | 320 | CC | CC | 0.11G | 0.1M | 48.1 |515K |
+| MobileNetV2-YOLOv3-Nano | 320 | AC | AC | 0.48G | 0.71M | 57.0 | 2.9M |
+| YOLOv3-Ultra | 320 | AC | AC | 0.11G | 0.1M | 44.5 | 515K |
 
 ### Face detection(single class)
 
