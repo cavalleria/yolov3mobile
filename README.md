@@ -16,7 +16,7 @@ Credit: [Ayoosh Kathuria](https://towardsdatascience.com/yolo-v3-object-detectio
 - AI-Challenger single, 训练集22446张, 验证集1500张
 - AI-Challenger, 训练集210000张, 验证集30000张
 
-#### [**Baidu Drive**](https://pan.baidu.com/s/1rUrWS-auaMn4sBfDf_naSw)(code:o3az)
+#### [**Baidu Drive**](https://pan.baidu.com/s/1OZkfYHTCBUPK6q0cW8tSdg)(code:9mjn)
 
 | Type | Dataset | Train data | Val data |
 |:---:|:---:|:---:|:---:|
